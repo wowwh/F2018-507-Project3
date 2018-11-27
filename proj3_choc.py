@@ -384,27 +384,59 @@ def interactive_prompt():
                 print('Command not recognized: '+ response)
                 print('')
                 continue
-            results=process_command(response)
-            for result in results:
-                if result[5] == None:
-                    print('{:40}'.format(result[0]),'{:25}'.format(result[1]),'{:25}'.format(result[2]),'{:5}'.format(str(round(float(result[3]),1))),'{:5}'.format(str(float(result[4])*100)[:2]+"%"),'{:10}'.format('Unknown'))
-                else:
-                    print('{:40}'.format(result[0]),'{:25}'.format(result[1]),'{:25}'.format(result[2]),'{:5}'.format(str(round(float(result[3]),1))),'{:5}'.format(str(float(result[4])*100)[:2]+"%"),'{:10}'.format(result[5]))
-            print('')
+            # try:
+            #     results=process_command(response)
+            #     for result in results:
+            #         if result[5] == None:
+            #             print('{:40}'.format(result[0]),'{:25}'.format(result[1]),'{:25}'.format(result[2]),'{:5}'.format(str(round(float(result[3]),1))),'{:5}'.format(str(float(result[4])*100)[:2]+"%"),'{:10}'.format('Unknown'))
+            #         else:
+            #             print('{:40}'.format(result[0]),'{:25}'.format(result[1]),'{:25}'.format(result[2]),'{:5}'.format(str(round(float(result[3]),1))),'{:5}'.format(str(float(result[4])*100)[:2]+"%"),'{:10}'.format(result[5]))
+            #     print('')
+            # except:
+            #     print('Command not recognized: '+ response)
+            # continue
+            try:
+                results=process_command(response)
+                
+                for result in results:    
+                    output=''                
+                    for i in range(len(result)):
+                        if i==3:
+                            data=str(round(float(result[i]),1))
+                        elif i==4:
+                            data=str(float(result[4])*100)[:2]+"%"
+                        elif i==5 and result[i] == None:
+                            data='Unknown'
+                        else:
+                            data=str(result[i])
+                        output+='{0:16}'.format(data[0:12] + '...' if len(data)>12 else data)
+                    print(output)
+                print('')
+            except:
+                print('Command not recognized: '+ response)
+                print('')
             continue
         
         
         elif 'companies' in response:
-            # print(2)
-            
+            # print(2)            
             if len(response)>9 and ('country='not in response) and ('region=' not in response) and ('bars_sold' not in response) and ('ratings' not in response) and ('cocoa' not in response) and ('bottom=' not in response) and ('top=' not in response):
                 print('Command not recognized: '+ response)
                 print('')
                 continue
-            results=process_command(response)
-            for result in results:
-                print('{:50}'.format(result[0]),'{:55}'.format(result[1]),'{:5}'.format(result[2]))
-            print('')
+            try:
+                results=process_command(response)
+                for result in results:
+                    output=''                
+                    for i in range(len(result)):
+                        data=str(result[i])
+                        output+='{0:16}'.format(data[0:12] + '...' if len(data)>12 else data)                        
+                    print(output)
+                    # print('{:50}'.format(result[0]),'{:55}'.format(result[1]),'{:5}'.format(result[2]))
+                print('')
+            except:
+                print('Command not recognized: '+ response)
+                print('')
             continue
         
         
@@ -414,10 +446,19 @@ def interactive_prompt():
                 print('Command not recognized: '+ response)
                 print('')
                 continue
-            results=process_command(response)
-            for result in results:
-                print('{:55}'.format(result[0]),'{:25}'.format(result[1]),'{:5}'.format(result[2]))
-            print('\n')
+            try:
+                results=process_command(response)
+                for result in results:
+                    output=''                
+                    for i in range(len(result)):
+                        data=str(result[i])
+                        output+='{0:16}'.format(data[0:12] + '...' if len(data)>12 else data)
+                    print(output)
+                    # print('{:55}'.format(result[0]),'{:25}'.format(result[1]),'{:5}'.format(result[2]))
+                print('')
+            except:
+                print('Command not recognized: '+ response)
+                print('')
             continue
         
         
@@ -428,10 +469,19 @@ def interactive_prompt():
                 print('Command not recognized: '+ response)
                 print('')
                 continue
-            results=process_command(response)
-            for result in results:
-                print('{:40}'.format(result[0]),'{:5}'.format(result[1]))
-            print('')
+            try:
+                results=process_command(response)
+                for result in results:
+                    output=''                
+                    for i in range(len(result)):
+                        data=str(result[i])
+                        output+='{0:16}'.format(data[0:12] + '...' if len(data)>12 else data)
+                    print(output)
+                    # print('{:40}'.format(result[0]),'{:5}'.format(result[1]))
+                print('')
+            except:
+                print('Command not recognized: '+ response)
+                print('')
             continue
 
 
@@ -447,5 +497,5 @@ def interactive_prompt():
 # Make sure nothing runs or prints out when this file is run as a module
 if __name__=="__main__":
     interactive_prompt()
-    # process_command('bars nothing')
+    # process_command('companies ratings top=8')
     
